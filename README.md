@@ -27,6 +27,14 @@ Please cite the original source of each dataset and comply with its user agreeme
 HMD populations: FRATNP, HUN, ITA, NLD, DNK, SWE, NOR, FIN, ISL, SVN, CHE, GBR_NP.
 Years outside a country's HMD range are not filled: clamp to the nearest available year before merging.
 
+Download from Stata:
+
+```stata
+copy "https://raw.githubusercontent.com/raoulreulen/mortality-rates/main/data/pcsf/pcsf_mortrates_hmd_5x1.dta" pcsf_mortrates_hmd_5x1.dta, replace
+```
+
+Merge and use:
+
 ```stata
 use cohort_split_records, clear      // stset by attained age, stsplit by ageband and year
 rename (_age _year) (ageband year)   // match your own variable names
