@@ -1,14 +1,20 @@
-# pcsf-mortality-rates
+# mortality-rates
 
-All-cause general-population mortality rates for the countries in the PCSF cohort, for use as the competing-risk
-rate (`mratevar()`) in [`stexpectcr`](https://github.com/raoulreulen/my-stata-tools).
+General-population mortality rates used as the competing-risk rate (`mratevar()`) in
+[`stexpectcr`](https://github.com/raoulreulen/my-stata-tools) and in other analyses. One folder per dataset;
+build scripts are in `code/`.
 
-Source: [Human Mortality Database](https://www.mortality.org) (HMD), period death rates, age-by-year grid 5x1.
-Please cite the HMD and comply with its user agreement when using or redistributing these rates.
+Please cite the original source of each dataset and comply with its user agreement when using or redistributing it.
 
-## File
+## Datasets
 
-`data/pcsf_mortrates_hmd_5x1.dta` (Stata 13 format; 69,156 rows)
+| Folder | File | Source | Coverage |
+|---|---|---|---|
+| `data/pcsf` | `pcsf_mortrates_hmd_5x1.dta` | [Human Mortality Database](https://www.mortality.org), period death rates 5x1 | PCSF countries (FR, HU, IT, NL, DK, SE, NO, FI, IS, SI, CH, UK), by sex, 5-year age band and year |
+
+## data/pcsf: PCSF countries
+
+`data/pcsf/pcsf_mortrates_hmd_5x1.dta` (Stata 13 format; 69,156 rows)
 
 | Variable | Meaning |
 |---|---|
@@ -21,8 +27,6 @@ Please cite the HMD and comply with its user agreement when using or redistribut
 HMD populations: FRATNP, HUN, ITA, NLD, DNK, SWE, NOR, FIN, ISL, SVN, CHE, GBR_NP.
 Years outside a country's HMD range are not filled: clamp to the nearest available year before merging.
 
-## Use with stexpectcr
-
 ```stata
 use cohort_split_records, clear      // stset by attained age, stsplit by ageband and year
 rename (_age _year) (ageband year)   // match your own variable names
@@ -30,6 +34,9 @@ merge m:1 ccode sex ageband year using pcsf_mortrates_hmd_5x1.dta, keep(match ma
 stexpectcr Cumexp, ratevar(rate_cancer) mratevar(mortrate) method(2) at(1(1)75)
 ```
 
-## Rebuilding
+Rebuild from the HMD download with `code/pcsf/build_pcsf_mortrates.do`.
 
-`code/build_pcsf_mortrates.do` rebuilds the file from the HMD `deathrates_period_5x1` download.
+## Adding a dataset
+
+Add `data/<name>/` and `code/<name>/`, then a row in the table above and a short section describing the keys,
+rate units and source.
