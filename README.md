@@ -14,7 +14,7 @@ Please cite the original source of each dataset and comply with its user agreeme
 
 ## data/pcsf: PCSF countries
 
-`data/pcsf/pcsf_mortrates_hmd_5x1.dta` (Stata 13 format; 69,156 rows)
+`data/pcsf/pcsf_mortrates_hmd_5x1.dta` (Stata 13 format; 48,780 rows, years 1900 onward)
 
 | Variable | Meaning |
 |---|---|

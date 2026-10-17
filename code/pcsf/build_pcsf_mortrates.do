@@ -36,6 +36,7 @@ collapse (mean) female male, by(ccode year ageband)
 rename (male female) (mortrate1 mortrate2)
 reshape long mortrate, i(ccode year ageband) j(sex)    // 1 = male, 2 = female
 keep if ageband<=85                      // 85 = ages 85-89
+keep if year>=1900                       // earlier HMD years never match the cohort
 order ccode sex ageband year mortrate
 sort ccode year ageband sex
 label data "PCSF cohort country mortality rates (HMD period 5x1, all-cause, per person-year)"
